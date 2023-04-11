@@ -13,7 +13,11 @@ class FpzVoicePoc(MycroftSkill):
         # self.speak_dialog('IncreasedFrequency', {
                 # 'offset': freq_offset})
         time.sleep(1)
-
+        
+    @intent_file_handler('poc.voice.fpz.intent')
+    def handle_poc_voice_fpz(self, message):
+        self.speak_dialog('OperationDone')
+        
 def create_skill():
     return FpzVoicePoc() *
 
