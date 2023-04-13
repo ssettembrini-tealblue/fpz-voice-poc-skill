@@ -14,25 +14,26 @@ class FpzVoicePoc(MycroftSkill):
         self.speak_dialog('ChangedFrequency', {'value': targetvalue})
     
     @intent_file_handler('IncreaseFrequency.intent')
-    def set_frequency(self, message):
+    def handle_increase_frequency(self, message):
         self.speak_dialog('OperationDone')
         offsetincrease = int(extract_number(message.data.get('freq')))
-        self.speak_dialog('IncreasedFrequency', {'offsetincrease': offsetincrease})
+        self.speak_dialog('IncreasedFrequency', 
+                          {'offsetincrease': offsetincrease})
     
     @intent_file_handler('DecreaseFrequency.intent')
-    def set_frequency(self, message):
+    def handle_decrease_frequency(self, message):
         self.speak_dialog('OperationDone')
         offsetvalue = int(extract_number(message.data.get('freq')))
         self.speak_dialog('DecreasedFrequency', {'offset': offsetvalue})
     
     @intent_file_handler('StartBlower.intent')
-    def set_frequency(self, message):
+    def handle_start_blower(self, message):
         self.speak_dialog('OperationDone')       
         self.speak_dialog('StartedBlower')
 
     
     @intent_file_handler('StopBlower.intent')
-    def set_frequency(self, message):
+    def handle_stop_blower(self, message):
         self.speak_dialog('OperationDone')       
         self.speak_dialog('StoppedBlower')
     
