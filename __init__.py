@@ -6,15 +6,14 @@ from mycroft.messagebus import Message
 
 
 def send_bus(self,type_function, value):  
-    self.bus.emit(Message(type_function,  
+    self.bus.emit(Message("recognizer_loop:" + type_function,
                           {'utterances': [value],  
-                            'lang': 'en-us'}))  
+                            'lang': 'en-us'}))
 
 class FpzVoicePoc(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
-
-    
+  
     @intent_file_handler('SetFrequency.intent')
     def set_frequency(self, message):
         self.speak_dialog('OperationDone')
