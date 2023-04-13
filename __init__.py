@@ -31,9 +31,18 @@ class FpzVoicePoc(MycroftSkill):
                 'offset': offsetvalue})
         time.sleep(1)
         
-    @intent_file_handler('poc.voice.fpz.intent')
-    def handle_poc_voice_fpz(self, message):
-        self.speak_dialog('poc.voice.fpz')
+    @intent_file_handler('StartBlower.intent')
+    def set_frequency(self, message):
+        self.speak_dialog('OperationDone')       
+        self.speak_dialog('StartedBlower')
+        time.sleep(1)
+    
+    @intent_file_handler('StopBlower.intent')
+    def set_frequency(self, message):
+        self.speak_dialog('OperationDone')       
+        self.speak_dialog('StoppedBlower')
+        time.sleep(1)
+    
         
 def create_skill():
     return FpzVoicePoc()
