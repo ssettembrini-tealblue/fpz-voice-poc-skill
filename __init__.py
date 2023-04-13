@@ -10,9 +10,9 @@ class FpzVoicePoc(MycroftSkill):
     @intent_file_handler('SetFrequency.intent')
     def set_frequency(self, message):
         self.speak_dialog('OperationDone')
-        freq_offset = int(extract_number(message.data.get('freq')))
-        self.speak_dialog('IncreasedFrequency', {
-                'offset': freq_offset})
+        targetvalue = int(extract_number(message.data.get('freq')))
+        self.speak_dialog('ChangedFrequency', {
+                'value': targetvalue})
         time.sleep(1)
         
     @intent_file_handler('poc.voice.fpz.intent')
