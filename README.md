@@ -5,10 +5,11 @@ Handles your blower's frequency with voice control
 This skill lets you handle your blower's working frequency through voice control, allowing you to increase it, decrease it, stop or start the device
 
 ## Examples
-* "Higher frequency"
-* "Lower frequency"
-* "Stop the blower"
-* "Start the blower"
+* "Set frequency to XX"
+* "Increase frequency by XX"
+* "Reduce frequency by XX"
+* "Stop blower"
+* "Start blower"
 
 ## Credits
 ssettembrini-tealblue
