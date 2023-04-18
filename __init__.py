@@ -91,7 +91,7 @@ class FpzVoicePoc(MycroftSkill):
         self.speak_dialog('OperationDone')       
         self.speak_dialog('SwitchedLanguage', {'value': inputlang})
         
-        call("sudo /bin/systemctl restart mycroft-skills", shell=True)
+        call("python3 restart.py", shell=True)
         #subprocess.call(['sh', './stop-mycroft.sh'])
         #subprocess.call(['sh', './start-mycroft.sh all'])
         #subprocess.call(['sh', './start-mycroft.sh cli'])
