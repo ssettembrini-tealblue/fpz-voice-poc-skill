@@ -1,9 +1,15 @@
 from mycroft import MycroftSkill, intent_file_handler
-import json
-import time
 from mycroft.util.parse import extract_number
 from mycroft.messagebus import Message
-
+from mycroft.configuration import LocalConf
+from mycroft.configuration.locations import (
+    DEFAULT_CONFIG,
+    OLD_USER_CONFIG,
+    SYSTEM_CONFIG,
+    USER_CONFIG
+)
+import json
+import time
 
 def send_bus(self,type_function, value):  
     self.bus.emit(Message(type_function,
@@ -48,6 +54,34 @@ class FpzVoicePoc(MycroftSkill):
         self.speak_dialog('OperationDone')       
         self.speak_dialog('StoppedBlower')
         send_bus(self,"stop",0);
+        
+    @intent_file_handler('SwitchLanguage.intent')
+    def handle_switch_language(self, message):
+    
+        from mycroft.configuration.config import (
+            LocalConf, USER_CONFIG, Configuration
+        )
+        
+        inputlang=message.data.get('lang')
+        
+        if inputlang == 'italian':
+            lang='it-it' 
+        elif inputlang == 'inglese':
+            lang='en-us'
+        else:
+            lang='en-us'
+        
+        new_config = {
+            'lang': lang
+        }
+        
+        user_config = LocalConf(USER_CONFIG)
+        user_config.merge(new_config)
+        user_config.store()
+        
+        self.speak_dialog('OperationDone')       
+        self.speak_dialog('SwitchedLanguage', {'value': inputlang})
+
     
 def create_skill():
     return FpzVoicePoc()
