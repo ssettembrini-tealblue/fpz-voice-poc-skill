@@ -65,18 +65,22 @@ class FpzVoicePoc(MycroftSkill):
         from mycroft.configuration.config import (
             LocalConf, USER_CONFIG, Configuration
         )
-        
+        port=0
         inputlang=message.data.get('lang')
         
         if inputlang == 'italian':
-            lang='it-it' 
+            lang='it-it'
+            port=8080
         elif inputlang == 'inglese':
             lang='en-us'
+            port=8088
         else:
             lang='en-us'
+            port=8088
         
         new_config = {
-            'lang': lang
+            'lang': lang,
+            'stt': {'deepspeech_server': {'uri': 'http://10.203.180.4:' + port + '/stt', 'sensitivity': 0.5}}
         }
         
         user_config = LocalConf(USER_CONFIG)
