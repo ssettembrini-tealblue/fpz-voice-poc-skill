@@ -9,10 +9,7 @@ from mycroft.configuration.locations import (
     USER_CONFIG
 )
 
-import xdg.BaseDirectory
-
-from .file_watch import FileWatcher
-
+import subprocess
 import json
 import time
 
@@ -21,35 +18,10 @@ def send_bus(self,type_function, value):
                           {'utterances': [value],  
                             'lang': 'en-us'}))
 
-def get_possible_config_files():
-    found_configs = set()
-
-    # XDG Locations
-    for conf_dir in xdg.BaseDirectory.load_config_paths('mycroft'):
-        config_file = join(conf_dir, 'mycroft.conf')
-        if isfile(config_file):
-            found_configs.add(config_file)
-            
-    hardcoded_configs = (
-        DEFAULT_CONFIG,
-        OLD_USER_CONFIG,
-        SYSTEM_CONFIG,
-        USER_CONFIG
-    )
-    for config in hardcoded_configs:
-        if isfile(config):
-            found_configs.add(config)
-    return found_configs
 
 class FpzVoicePoc(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
-        self.config_watcher = FileWatcher(
-            get_possible_config_files(),
-            self.config_changed_callback
-        )
-    def config_changed_callback(self, path):  
-        config = LocalConf(path)
         
     @intent_file_handler('SetFrequency.intent')
     def set_frequency(self, message):
@@ -112,6 +84,10 @@ class FpzVoicePoc(MycroftSkill):
         
         self.speak_dialog('OperationDone')       
         self.speak_dialog('SwitchedLanguage', {'value': inputlang})
+        
+        #subprocess.call(['sh', './stop-mycroft.sh'])
+        #subprocess.call(['sh', './start-mycroft.sh all'])
+        #subprocess.call(['sh', './start-mycroft.sh cli'])
 
     
 def create_skill():
