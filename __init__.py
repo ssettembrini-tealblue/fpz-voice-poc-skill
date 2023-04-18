@@ -8,6 +8,9 @@ from mycroft.configuration.locations import (
     SYSTEM_CONFIG,
     USER_CONFIG
 )
+
+from .file_watch import FileWatcher
+
 import json
 import time
 
@@ -16,9 +19,36 @@ def send_bus(self,type_function, value):
                           {'utterances': [value],  
                             'lang': 'en-us'}))
 
+def get_possible_config_files():
+
+    found_configs = set()
+
+    hardcoded_configs = (
+        DEFAULT_CONFIG,
+        OLD_USER_CONFIG,
+        SYSTEM_CONFIG,
+        USER_CONFIG
+    )
+    for config in hardcoded_configs:
+        if isfile(config):
+            found_configs.add(config)
+    return found_configs
+
 class FpzVoicePoc(MycroftSkill):
     def __init__(self):
         MycroftSkill.__init__(self)
+        self.config_watcher = FileWatcher(
+            get_possible_config_files(),
+            self.config_changed_callback
+        )
+    def config_changed_callback(self, path):
+        """Handler for updated configurations on disk.
+        Args:
+            path (str): file that triggered the update
+        """
+        self.log.info(f"{path} changed on disk, update config!")
+        config = LocalConf(path)
+        self.bus.emit(Message("configuration.updated", config))
   
     @intent_file_handler('SetFrequency.intent')
     def set_frequency(self, message):
