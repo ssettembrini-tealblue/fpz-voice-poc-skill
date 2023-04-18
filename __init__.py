@@ -78,9 +78,10 @@ class FpzVoicePoc(MycroftSkill):
             lang='en-us'
             port=8088
         
+        uri='http://10.203.180.4:' + port + '/stt'
         new_config = {
             'lang': lang,
-            'stt': {'deepspeech_server': {'uri': 'http://10.203.180.4:' + port + '/stt', 'sensitivity': 0.5}}
+            'stt': {'deepspeech_server': {'uri': uri, 'sensitivity': 0.5}}
         }
         
         user_config = LocalConf(USER_CONFIG)
