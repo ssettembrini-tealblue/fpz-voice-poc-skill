@@ -9,7 +9,8 @@ from mycroft.configuration.locations import (
     USER_CONFIG
 )
 
-import subprocess
+#import subprocess
+from subprocess import call
 import json
 import time
 
@@ -85,6 +86,7 @@ class FpzVoicePoc(MycroftSkill):
         self.speak_dialog('OperationDone')       
         self.speak_dialog('SwitchedLanguage', {'value': inputlang})
         
+        call("sudo /bin/systemctl restart mycroft-skills", shell=True)
         #subprocess.call(['sh', './stop-mycroft.sh'])
         #subprocess.call(['sh', './start-mycroft.sh all'])
         #subprocess.call(['sh', './start-mycroft.sh cli'])
