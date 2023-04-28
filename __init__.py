@@ -16,8 +16,7 @@ import time
 
 def send_bus(self,type_function, value):  
     self.bus.emit(Message(type_function,
-                          {'utterances': [value],  
-                            'lang': 'en-us'}))
+                          {'value': value}))
 
 
 class FpzVoicePoc(MycroftSkill):
