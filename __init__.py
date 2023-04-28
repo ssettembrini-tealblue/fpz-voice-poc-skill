@@ -15,8 +15,9 @@ import json
 import time
 
 def send_bus(self,type_function, value):  
-    self.bus.emit(Message(type_function,
-                          {'value': value}))
+    self.bus.emit(Message('fpzcontrol',
+                          {'value': value,
+                          'action': type_function}))
 
 
 class FpzVoicePoc(MycroftSkill):
