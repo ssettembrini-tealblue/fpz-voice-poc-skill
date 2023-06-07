@@ -75,8 +75,7 @@ class FpzVoicePoc(MycroftSkill):
             lang='en-us'
             port=8088
         else:
-            lang='en-us'
-            port=8088
+            return
         
         uri='http://10.203.180.4:' + str(port) + '/stt'
         new_config = {
